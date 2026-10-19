@@ -1,0 +1,21 @@
+/* INF601 - Advanced Programming in Python
+   Oumar Mballo
+   Mini Project 5 */
+
+body {
+  background-color: #f5f6f8;
+}
+
+.navbar-brand {
+  font-weight: 700;
+}
+
+footer {
+  color: #6c757d;
+  border-top: 1px solid #e3e6ea;
+  margin-top: 2rem;
+}
+
+.card {
+  border: none;
+}
