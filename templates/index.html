@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Home &middot; BookNook{% endblock %}
+{% block content %}
+<div class="p-5 mb-4 bg-white border rounded-3 text-center shadow-sm">
+  <h1 class="display-5 fw-bold">Welcome to BookNook</h1>
+  <p class="lead col-md-8 mx-auto">
+    Your personal reading tracker. Keep a shelf of the books you've read, are reading,
+    and want to read &mdash; with ratings and notes, all in one place.
+  </p>
+  {% if g.user %}
+    <a href="{{ url_for('books') }}" class="btn btn-primary btn-lg">Go to My Shelf</a>
+  {% else %}
+    <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">Get Started</a>
+    <a href="{{ url_for('login') }}" class="btn btn-outline-secondary btn-lg">Log In</a>
+  {% endif %}
+</div>
+
+<div class="row text-center g-4">
+  <div class="col-md-4">
+    <h3>&#128214; Track</h3>
+    <p>Add books and mark them as To Read, Reading, or Finished.</p>
+  </div>
+  <div class="col-md-4">
+    <h3>&#11088; Rate</h3>
+    <p>Give each book a 1&ndash;5 star rating once you've finished it.</p>
+  </div>
+  <div class="col-md-4">
+    <h3>&#128221; Note</h3>
+    <p>Jot down your thoughts, kept private to your own account.</p>
+  </div>
+</div>
+{% endblock %}

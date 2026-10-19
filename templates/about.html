@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}About &middot; BookNook{% endblock %}
+{% block content %}
+<h1 class="mb-3">About BookNook</h1>
+<p>
+  BookNook is a small Flask web application built for INF601 &ndash; Advanced Programming in
+  Python (Mini Project 5). It demonstrates a complete, database-backed web app with user accounts.
+</p>
+
+<h4 class="mt-4">What it does</h4>
+<ul>
+  <li>Lets you create an account and log in securely (passwords are hashed, never stored in plain text).</li>
+  <li>Gives each user a private bookshelf stored in a SQLite database.</li>
+  <li>Supports adding, viewing, and deleting books with a title, author, status, rating, and notes.</li>
+</ul>
+
+<h4 class="mt-4">How it's built</h4>
+<ul>
+  <li><strong>Flask</strong> &mdash; routing and the application-factory pattern.</li>
+  <li><strong>Flask-SQLAlchemy</strong> &mdash; the SQLite database and models (two tables linked by a foreign key).</li>
+  <li><strong>Flask-Login</strong> &mdash; the register / login session system.</li>
+  <li><strong>Bootstrap 5</strong> &mdash; responsive styling and the delete-confirmation modal.</li>
+</ul>
+{% endblock %}
