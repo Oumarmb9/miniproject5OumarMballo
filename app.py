@@ -167,6 +167,43 @@ def register_routes(app):
 
         return render_template("add_book.html")
 
+    @app.route("/books/<int:book_id>/edit", methods=["GET", "POST"])
+    @login_required
+    def edit_book(book_id):
+        conn = db.get_db()
+        book = conn.execute(
+            "SELECT * FROM books WHERE id = ?", (book_id,)
+        ).fetchone()
+
+        if book is None:
+            flash("Book not found.", "danger")
+            return redirect(url_for("books"))
+        if book["user_id"] != g.user["id"]:
+            flash("You can only edit your own books.", "danger")
+            return redirect(url_for("books"))
+
+        if request.method == "POST":
+            title = request.form.get("title", "").strip()
+            author = request.form.get("author", "").strip()
+            status = request.form.get("status", "To Read")
+            rating = request.form.get("rating") or None
+            notes = request.form.get("notes", "").strip()
+
+            if not title or not author:
+                flash("Title and author are both required.", "danger")
+            else:
+                conn.execute(
+                    "UPDATE books SET title = ?, author = ?, status = ?, "
+                    "rating = ?, notes = ? WHERE id = ?",
+                    (title, author, status,
+                     int(rating) if rating else None, notes, book_id),
+                )
+                conn.commit()
+                flash(f'"{title}" was updated.', "success")
+                return redirect(url_for("books"))
+
+        return render_template("edit_book.html", book=book)
+
     @app.route("/books/<int:book_id>/delete", methods=["POST"])
     @login_required
     def delete_book(book_id):

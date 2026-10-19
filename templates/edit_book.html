@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Edit Book &middot; BookNook{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h1 class="h3 mb-4">Edit Book</h1>
+        <form method="POST" action="{{ url_for('edit_book', book_id=book['id']) }}">
+          <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input type="text" name="title" class="form-control"
+                   value="{{ book['title'] }}" required autofocus>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Author</label>
+            <input type="text" name="author" class="form-control"
+                   value="{{ book['author'] }}" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select name="status" class="form-select">
+              <option {{ 'selected' if book['status'] == 'To Read' else '' }}>To Read</option>
+              <option {{ 'selected' if book['status'] == 'Reading' else '' }}>Reading</option>
+              <option {{ 'selected' if book['status'] == 'Finished' else '' }}>Finished</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Rating (optional)</label>
+            <select name="rating" class="form-select">
+              <option value="" {{ 'selected' if not book['rating'] else '' }}>No rating</option>
+              <option value="1" {{ 'selected' if book['rating'] == 1 else '' }}>&#9733;</option>
+              <option value="2" {{ 'selected' if book['rating'] == 2 else '' }}>&#9733;&#9733;</option>
+              <option value="3" {{ 'selected' if book['rating'] == 3 else '' }}>&#9733;&#9733;&#9733;</option>
+              <option value="4" {{ 'selected' if book['rating'] == 4 else '' }}>&#9733;&#9733;&#9733;&#9733;</option>
+              <option value="5" {{ 'selected' if book['rating'] == 5 else '' }}>&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Notes (optional)</label>
+            <textarea name="notes" class="form-control" rows="3">{{ book['notes'] or '' }}</textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+          <a href="{{ url_for('books') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

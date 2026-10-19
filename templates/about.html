@@ -11,14 +11,14 @@
 <ul>
   <li>Lets you create an account and log in securely (passwords are hashed, never stored in plain text).</li>
   <li>Gives each user a private bookshelf stored in a SQLite database.</li>
-  <li>Supports adding, viewing, and deleting books with a title, author, status, rating, and notes.</li>
+  <li>Supports adding, editing, viewing, and deleting books with a title, author, status, rating, and notes.</li>
 </ul>
 
 <h4 class="mt-4">How it's built</h4>
 <ul>
   <li><strong>Flask</strong> &mdash; routing and the application-factory pattern.</li>
-  <li><strong>Flask-SQLAlchemy</strong> &mdash; the SQLite database and models (two tables linked by a foreign key).</li>
-  <li><strong>Flask-Login</strong> &mdash; the register / login session system.</li>
+  <li><strong>Python's built-in <code>sqlite3</code></strong> &mdash; the SQLite database, with two tables linked by a foreign key.</li>
+  <li><strong>Flask sessions + Werkzeug</strong> &mdash; the register / login system with hashed passwords.</li>
   <li><strong>Bootstrap 5</strong> &mdash; responsive styling and the delete-confirmation modal.</li>
 </ul>
 {% endblock %}
