@@ -9,10 +9,11 @@ remove books with a confirmation dialog.
 
 ## Features
 
-- Five+ pages built on a shared Jinja template (Home, About, Register, Log In, My Shelf, Add Book).
+- Five+ pages built on a shared Jinja template (Home, About, Register, Log In, My Shelf, Add Book, Edit Book).
 - Register / log in / log out with session-based authentication and **hashed passwords** (Werkzeug).
 - A **SQLite database with two tables linked by a foreign key** — `users` (one) → `books` (many), via `books.user_id`.
-- An **Add Book** page with a form served over `GET` and saved over `POST`.
+- **Add** and **Edit** pages, each with a form served over `GET` and saved over `POST`.
+- **View notes**: any book with notes shows a *Notes* button that expands to display them on the shelf.
 - **Bootstrap 5** styling, including a **modal** that confirms before a book is deleted.
 - Each user only ever sees and edits their own books.
 
@@ -78,7 +79,9 @@ Then open <http://127.0.0.1:5000> in your browser.
 1. Click **Register** and create an account.
 2. **Log in** with that account.
 3. Go to **Add Book**, fill in the form, and submit — the book appears on **My Shelf**.
-4. Use the **Delete** button on a book to open the confirmation modal and remove it.
+4. On a book with notes, click **Notes** to expand and read them under the row.
+5. Click **Edit** to change any of a book's details in a pre-filled form.
+6. Use the **Delete** button on a book to open the confirmation modal and remove it.
 
 ## AI Usage
 
