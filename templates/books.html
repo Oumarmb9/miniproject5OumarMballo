@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}My Shelf &middot; BookNook{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="mb-0">My Shelf</h1>
+  <a href="{{ url_for('add_book') }}" class="btn btn-primary">+ Add Book</a>
+</div>
+
+{% if books %}
+<div class="table-responsive">
+  <table class="table table-striped align-middle bg-white shadow-sm">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Status</th>
+        <th>Rating</th>
+        <th class="text-end">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for book in books %}
+      <tr>
+        <td class="fw-semibold">{{ book['title'] }}</td>
+        <td>{{ book['author'] }}</td>
+        <td>
+          {% if book['status'] == "Finished" %}
+            <span class="badge bg-success">{{ book['status'] }}</span>
+          {% elif book['status'] == "Reading" %}
+            <span class="badge bg-primary">{{ book['status'] }}</span>
+          {% else %}
+            <span class="badge bg-secondary">{{ book['status'] }}</span>
+          {% endif %}
+        </td>
+        <td>
+          {% if book['rating'] %}
+            <span class="text-warning">{{ "★" * book['rating'] }}</span>
+          {% else %}
+            <span class="text-muted">&mdash;</span>
+          {% endif %}
+        </td>
+        <td class="text-end">
+          <!-- Button triggers the Bootstrap modal for this book -->
+          <button type="button" class="btn btn-sm btn-outline-danger"
+                  data-bs-toggle="modal" data-bs-target="#deleteModal{{ book['id'] }}">
+            Delete
+          </button>
+
+          <!-- Bootstrap modal: confirm deletion -->
+          <div class="modal fade" id="deleteModal{{ book['id'] }}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Remove book?</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-start">
+                  Are you sure you want to remove <strong>{{ book['title'] }}</strong>
+                  from your shelf? This cannot be undone.
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <form method="POST" action="{{ url_for('delete_book', book_id=book['id']) }}">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="text-center text-muted py-5">
+  <p class="fs-4">Your shelf is empty.</p>
+  <a href="{{ url_for('add_book') }}" class="btn btn-primary">Add your first book</a>
+</div>
+{% endif %}
+{% endblock %}
